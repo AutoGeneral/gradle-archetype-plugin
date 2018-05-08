@@ -7,10 +7,10 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public class FileUtilsTest {
+public class FileUtilsFileContentTest {
     private Map<String, String> map = new HashMap<>();
 
-    public FileUtilsTest() {
+    public FileUtilsFileContentTest() {
         map.put("yes", "Y");
         map.put("no", "N");
         map.put("defo", "definitely");
