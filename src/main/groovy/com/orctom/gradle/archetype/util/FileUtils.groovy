@@ -248,8 +248,8 @@ class FileUtils {
 
   // replaces "__variable__" (used in directory/file names) with "${variable}"
   static String resolvePath(String path) {
-    path = path.replaceAll('(.*)__IF_([^{}/\\\\\\\\@\\\\n,]+)__(.*)', '$1\\${$2.matches(\'' + TRUTH_REGEX +
-            '\') ? \'\' : \'<' + DELETED_MARKER + '\'}$3')
+    path = path.replaceAll('(.*)__IF_(\\w+)__(.*)', '$1\\${$2.matches(\'' + TRUTH_REGEX +
+            '\') ? \'\' : \'' + DELETED_MARKER + '\'}$3')
     path.replaceAll('(.*)__([^{}/\\\\@\\n,]+)__(.*)', '$1\\$\\{$2\\}$3')
   }
 }
