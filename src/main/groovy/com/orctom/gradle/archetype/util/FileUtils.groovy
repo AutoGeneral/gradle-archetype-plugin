@@ -20,6 +20,7 @@ class FileUtils {
   private static final String TRUTH_REGEX = "^[Yy]"
   private static final Pattern TRUTH_PATTERN = Pattern.compile(TRUTH_REGEX, Pattern.CASE_INSENSITIVE)
   private static final String DELETED_MARKER = "<DELETED>"
+  private static final String NON_TEMPLATE_FILENAME = '.nontemplates'
 
   static engine = new GStringTemplateEngine()
 
@@ -42,12 +43,12 @@ class FileUtils {
   }
 
   private static Set<String> getNonTemplates(File projectDir, File templateDir) {
-    File templateSpecificNonTemplatesFile = new File(templateDir, '.nontemplates')
+    File templateSpecificNonTemplatesFile = new File(templateDir, NON_TEMPLATE_FILENAME)
     if (templateSpecificNonTemplatesFile.exists()) {
       return readNonTemplates(templateDir.path, templateSpecificNonTemplatesFile)
     }
 
-    File defaultNonTemplatesFile = new File(projectDir, 'src/main/resources/.nontemplates')
+    File defaultNonTemplatesFile = new File(projectDir, 'src/main/resources/' + NON_TEMPLATE_FILENAME)
     if (defaultNonTemplatesFile.exists()) {
       return readNonTemplates(templateDir.path, defaultNonTemplatesFile)
     }
@@ -85,7 +86,7 @@ class FileUtils {
     templates.stream().each { source ->
       Optional<File> potentialTarget = getTargetFile(sourceDirPath, targetDir, source, binding)
 
-      if (source.isDirectory() || !potentialTarget.isPresent()) {
+      if (source.isDirectory() || !potentialTarget.isPresent() || isFileContainingNonTemplatePatterns(source)) {
         return
       }
 
@@ -155,6 +156,10 @@ class FileUtils {
     source.path in nonTemplates
   }
 
+  static boolean isFileContainingNonTemplatePatterns(File source) {
+    source.getName().equals(NON_TEMPLATE_FILENAME)
+  }
+
   static String resolve(String text, Map binding) {
     String latestText = escape(text)
 
@@ -171,7 +176,7 @@ class FileUtils {
   }
 
   private static String expandVariables(String text, Map bindings) {
-    text.replaceAll('@([^{}/\\\\@\\n,\\s]+)@', '\\$\\{$1\\}')
+    text.replaceAll('@([\\w_]+)@', '\\$\\{$1\\}')
   }
 
   private static String expandInlineIfBlocks(String text, Map bindings) {
