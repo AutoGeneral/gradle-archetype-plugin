@@ -1,8 +1,8 @@
 plugins {
-  id "com.gradle.plugin-publish" VERSION "0.9.7"
+  id "com.gradle.plugin-publish" version "0.9.7"
 }
 plugins {
-  id 'net.researchgate.release' VERSION '2.3.4'
+  id 'net.researchgate.release' version '2.3.4'
 }
 
 [
@@ -41,6 +41,27 @@ pluginBundle {
   }
 }
 
+task testJar(type: Jar, dependsOn: testClasses) {
+  baseName = ARTIFACT
+  version = VERSION
+  classifier = 'tests'
+  from sourceSets.test.output
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+  baseName = ARTIFACT
+  version = VERSION
+  classifier = 'sources'
+  from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+  baseName = ARTIFACT
+  version = VERSION
+  classifier = 'javadoc'
+  from javadoc.destinationDir
+}
+
 publishing {
   publications {
     maven(MavenPublication) {
@@ -72,4 +93,3 @@ publishing {
       url "http://prod-vm-fv-ag-snx-x1.budgetdirect.com.au:8081/nexus/content/repositories/${VERSION.endsWith('-SNAPSHOT') ? 'snapshots' : 'releases'}/"
     }
   }
-}
