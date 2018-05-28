@@ -93,3 +93,4 @@ publishing {
       url "http://prod-vm-fv-ag-snx-x1.budgetdirect.com.au:8081/nexus/content/repositories/${VERSION.endsWith('-SNAPSHOT') ? 'snapshots' : 'releases'}/"
     }
   }
+}
