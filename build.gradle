@@ -35,3 +35,36 @@ pluginBundle {
     }
   }
 }
+
+publishing {
+  publications {
+    maven(MavenPublication) {
+      groupId MAVEN_GROUP
+      artifactId ARTIFACT
+      version VERSION
+
+      from components.java
+
+      artifact sourcesJar {
+        classifier "sources"
+      }
+
+      artifact (javadocJar) {
+        classifier = 'javadoc'
+      }
+
+      artifact (testJar) {
+        classifier = 'tests'
+      }
+    }
+  }
+  repositories {
+    maven {
+      credentials {
+        username System.getenv('NEXUS_USERNAME')
+        password System.getenv('NEXUS_PASSWORD')
+      }
+      url "http://prod-vm-fv-ag-snx-x1.budgetdirect.com.au:8081/nexus/content/repositories/${VERSION.endsWith('-SNAPSHOT') ? 'snapshots' : 'releases'}/"
+    }
+  }
+}
