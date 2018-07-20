@@ -3,7 +3,6 @@ package com.orctom.gradle.archetype.util
 import com.orctom.gradle.archetype.ArchetypePlugin
 import groovy.io.FileType
 import groovy.text.GStringTemplateEngine
-import org.apache.commons.lang3.StringUtils
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
 
@@ -213,9 +212,9 @@ class FileUtils {
   private static boolean evaluateIfClause(String ifClause, Map<String,String> bindings) {
     String ifClauseBinding = bindings.get(ifClause.trim())
 
-    if (StringUtils.isNotEmpty(bindings.get(ifClause.trim()))) {
+    if (bindings.get(ifClause.trim()) != null) {
       return ifClauseBinding.matches(TRUTH_PATTERN)
-    } else if (ifClause.startsWith('!') && StringUtils.isNotEmpty(bindings.get(ifClause.trim().substring(1)))) {
+    } else if (ifClause.startsWith('!') && bindings.get(ifClause.trim().substring(1)) != null) {
       return !bindings.get(ifClause.trim().substring(1)).matches(TRUTH_PATTERN)
     } else {
       try {
