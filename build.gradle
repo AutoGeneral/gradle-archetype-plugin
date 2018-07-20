@@ -22,7 +22,6 @@ repositories {
 }
 
 dependencies {
-  compile('org.apache.commons:commons-lang3:3.0')
   compile gradleApi()
   compile localGroovy()
 }
