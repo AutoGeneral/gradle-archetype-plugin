@@ -3,7 +3,7 @@ package com.orctom.gradle.archetype.util
 import com.orctom.gradle.archetype.ArchetypePlugin
 import groovy.io.FileType
 import groovy.text.GStringTemplateEngine
-import org.apache.commons.lang.StringUtils
+import org.apache.commons.lang3.StringUtils
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
 
@@ -90,7 +90,7 @@ class FileUtils {
         return
       }
 
-      File target = potentialTarget.get();
+      File target = potentialTarget.get()
 
       LOGGER.debug('Processing {} -> {}', source, target)
 
@@ -163,7 +163,7 @@ class FileUtils {
   static String resolve(String text, Map binding) {
     String latestText = escape(text)
 
-    String previouslyExpanded
+    String previouslyExpanded = ""
 
     while(!latestText.equals(previouslyExpanded)) {
       previouslyExpanded = latestText
@@ -210,7 +210,7 @@ class FileUtils {
     ifBlockExpanded.toString()
   }
 
-  private static boolean evaluateIfClause(String ifClause, Map bindings) {
+  private static boolean evaluateIfClause(String ifClause, Map<String,String> bindings) {
     String ifClauseBinding = bindings.get(ifClause.trim())
 
     if (StringUtils.isNotEmpty(bindings.get(ifClause.trim()))) {
