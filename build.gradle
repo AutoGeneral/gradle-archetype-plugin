@@ -90,7 +90,7 @@ publishing {
         username System.getenv('NEXUS_USERNAME')
         password System.getenv('NEXUS_PASSWORD')
       }
-      url "http://prod-vm-fv-ag-snx-x1.budgetdirect.com.au:8081/nexus/content/repositories/${VERSION.endsWith('-SNAPSHOT') ? 'snapshots' : 'releases'}/"
+      url "http://binary-repo.budgetdirect.com.au/content/repositories/${VERSION.endsWith('-SNAPSHOT') ? 'snapshots' : 'releases'}/"
     }
   }
 }
