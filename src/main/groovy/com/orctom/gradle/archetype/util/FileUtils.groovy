@@ -179,12 +179,12 @@ class FileUtils {
   }
 
   private static String expandInlineIfBlocks(String text, Map bindings) {
-    Pattern p = Pattern.compile("@IF\\s*\\(\\s*([^{}/\\\\@\\n,\\s]+)\\s*\\)@([^\\n]*)@ENDIF@", Pattern.DOTALL)
+    Pattern p = Pattern.compile("@IF\\s*\\(\\s*([^\\n]+?)\\s*\\)@([^\\n]*?)@ENDIF@", Pattern.DOTALL)
     expandIfBlocks(p, text, bindings)
   }
 
   private static String expandMultilineIfBlocks(String text, Map bindings) {
-    Pattern p = Pattern.compile("@IF\\s*\\(\\s*([^{}/\\\\@\\n,\\s]+)\\s*\\)@\\n?(.*)@ENDIF@\\n?", Pattern.DOTALL)
+    Pattern p = Pattern.compile("@IF\\s*\\(\\s*([^\\n]+?)\\s*\\)@\\n?(.*?)@ENDIF@\\n?", Pattern.DOTALL)
     expandIfBlocks(p, text, bindings)
   }
 

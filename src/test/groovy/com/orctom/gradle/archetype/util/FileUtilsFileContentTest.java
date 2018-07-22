@@ -45,10 +45,14 @@ public class FileUtilsFileContentTest {
                                                      "    This is @defo@ present\n" +
                                                      "    This is on the next line\n" +
                                                      "@ENDIF@\n" +
+                                                    "@IF(yes)@\n" +
+                                                    "    This is the second block\n" +
+                                                    "@ENDIF@\n" +
                                                      "Afterwards\n", map);
         assertEquals("Before inline text\n" +
                 "    This is definitely present\n" +
                 "    This is on the next line\n" +
+                "    This is the second block\n" +
                 "Afterwards\n", resolvedText);
 
         resolvedText = FileUtils.resolve("Before @IF(!no.matches('^[Nn]'))@inline text@ENDIF@nothing\\n" +
