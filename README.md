@@ -36,6 +36,7 @@ Following parameters will NOT be prompted, if not available in system properties
 | Param           | Description                                         | Default                        |
 | --------------- | ----------------------------------------------------| ------------------------------ |
 | templates       | The folder path where template locates, *Mandatory* | `src/main/resources/templates` |
+| template.type   | The template type - when set is added to the templates directory value | `.` |
 | failIfFileExist | Fail if there are files with the same name exist in the `generated` folder; otherwise overwrite | `true` |
 
 #### System Properties

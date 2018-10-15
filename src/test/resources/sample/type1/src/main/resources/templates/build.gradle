@@ -1,3 +1,5 @@
+package sample.type1.src.main.resources.templates
+
 buildscript {
   repositories {
     maven {
