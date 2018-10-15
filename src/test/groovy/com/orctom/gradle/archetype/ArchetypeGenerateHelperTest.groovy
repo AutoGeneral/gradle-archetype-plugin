@@ -1,6 +1,5 @@
 package com.orctom.gradle.archetype
 
-import bsh.This
 import com.google.common.io.Files
 import org.apache.commons.io.FileUtils
 import org.junit.Before
