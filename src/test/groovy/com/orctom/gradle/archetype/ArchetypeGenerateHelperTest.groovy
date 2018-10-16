@@ -27,6 +27,22 @@ public class ArchetypeGenerateHelperTest {
   @Before
   public void init() {
     this.projectDir = Files.createTempDir();
+    System.setProperty("template.type","type1")
+  }
+
+  @Test
+  public void testType2Template() {
+    System.setProperty("template.type","type2")
+    System.setProperty("com.orctom.gradle.archetype.binding.testBinding","Type 2");
+
+    new ArchetypeGenerateHelper().run(projectDir)
+
+    def type2File = new File(this.projectDir,"generated/test.text")
+
+    assertTrue("Type2 template file should have been created", type2File.exists())
+
+    def type2TemplateFile = FileUtils.readFileToString(type2File)
+    assertThat(type2TemplateFile, containsString("This template type is Type 2"))
   }
 
   @Test

@@ -16,11 +16,17 @@ class ArchetypeGenerateHelper {
   private static final Pattern PATTERN_DOUBLE_DOTS = Pattern.compile('..')
 
   static void run(def projectDir) {
+    String templateType = System.getProperty("template.type")
+
     String projectGroup = getParam('group', 'Please enter the group name')
     String projectName = getParam('name', 'Please enter the project name')
     String projectVersion = getParam('version', 'Please enter the version name', '1.0-SNAPSHOT')
 
     String templatePath = System.getProperty('templates', ArchetypePlugin.DIR_TEMPLATES)
+
+    if (templateType) {
+      templatePath = templatePath + File.separator + templateType
+    }
 
     Map binding = [
         'group'          : projectGroup,
